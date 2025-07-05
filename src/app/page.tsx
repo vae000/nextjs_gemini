@@ -51,6 +51,12 @@ function Navigation() {
                 仪表板
               </a>
               <a
+                href="/prisma-demo"
+                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Prisma演示
+              </a>
+              <a
                 href="#"
                 className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
@@ -250,6 +256,27 @@ export default function Home() {
                       className="inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition-colors text-sm font-medium"
                     >
                       查看示例
+                    </a>
+                  </div>
+                </div>
+
+                {/* Prisma ORM 演示 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
+                  <div className="p-6">
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">🗄️</span>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        Prisma ORM 演示
+                      </h3>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                      完整的 Prisma ORM 集成示例，包含用户管理、文章系统等
+                    </p>
+                    <a
+                      href="/prisma-demo"
+                      className="inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors text-sm font-medium"
+                    >
+                      查看演示
                     </a>
                   </div>
                 </div>
