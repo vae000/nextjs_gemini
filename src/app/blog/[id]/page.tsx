@@ -3,16 +3,19 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getPostById, getRelatedPosts } from "@/lib/blog-data";
 
-// 定义页面参数类型
+// 定义页面参数类型 (Next.js 15 中 params 是异步的)
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  // 等待获取参数 (Next.js 15 要求)
+  const { id } = await params;
+  
   // 根据ID获取博客文章
-  const post = getPostById(params.id);
+  const post = getPostById(id);
   
   // 如果文章不存在，显示404页面
   if (!post) {
@@ -20,7 +23,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   // 获取相关文章
-  const relatedPosts = getRelatedPosts(post.id, 3);
+  const relatedPosts = getRelatedPosts(id, 3);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
