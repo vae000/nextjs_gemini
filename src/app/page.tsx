@@ -142,6 +142,142 @@ export default function Home() {
                 阅读文档
               </a>
             </div>
+
+            {/* 学习资源部分 */}
+            <div className="w-full max-w-4xl mt-16">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                🚀 学习资源
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* API Routes 完整指南 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
+                  <div className="p-6">
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">📚</span>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        API Routes 完整指南
+                      </h3>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                      详细的 API Routes 学习指南，包含理论教学、实践示例和最佳实践
+                    </p>
+                    <a
+                      href="/api-guide"
+                      className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
+                    >
+                      开始学习
+                    </a>
+                  </div>
+                </div>
+
+                {/* API 在线测试 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
+                  <div className="p-6">
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">🧪</span>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        API 在线测试
+                      </h3>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                      在线测试所有 API 功能，包含用户管理、认证、文件上传等
+                    </p>
+                    <a
+                      href="/api-test"
+                      className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm font-medium"
+                    >
+                      立即测试
+                    </a>
+                  </div>
+                </div>
+
+                {/* 客户端调用示例 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
+                  <div className="p-6">
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">💻</span>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        客户端调用示例
+                      </h3>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                      学习如何在 React 组件中调用 API Routes
+                    </p>
+                    <a
+                      href="/examples"
+                      className="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm font-medium"
+                    >
+                      查看示例
+                    </a>
+                  </div>
+                </div>
+
+                {/* 服务端调用示例 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
+                  <div className="p-6">
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">🖥️</span>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        服务端调用示例
+                      </h3>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                      学习如何在服务端组件中调用 API
+                    </p>
+                    <a
+                      href="/server-examples"
+                      className="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors text-sm font-medium"
+                    >
+                      查看示例
+                    </a>
+                  </div>
+                </div>
+
+                {/* 自定义 Hooks 示例 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
+                  <div className="p-6">
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">🪝</span>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        自定义 Hooks 示例
+                      </h3>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                      使用封装的 Hooks 简化 API 调用
+                    </p>
+                    <a
+                      href="/hooks-examples"
+                      className="inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition-colors text-sm font-medium"
+                    >
+                      查看示例
+                    </a>
+                  </div>
+                </div>
+
+                {/* 学习路径 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
+                  <div className="p-6">
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">🗺️</span>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        Next.js 学习路径
+                      </h3>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                      完整的 Next.js 学习路径规划，从基础到高级
+                    </p>
+                    <a
+                      href="/NEXTJS_LEARNING_PATH.md"
+                      className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors text-sm font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      查看路径
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </main>
           <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
             <a
