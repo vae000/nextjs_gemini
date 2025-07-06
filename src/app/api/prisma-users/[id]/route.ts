@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { UserService } from '@/lib/db-operations'
 import { Role } from '@prisma/client'
+import { requireOwnershipOrAdmin, requireModerator } from '@/lib/auth'
 
 // GET请求 - 获取单个用户
 export async function GET(
@@ -9,18 +10,23 @@ export async function GET(
 ) {
   try {
     const { id } = await params
-    const userId = parseInt(id)
-    
+
     // 验证ID格式
-    if (isNaN(userId)) {
+    if (!id || id.trim() === '') {
       return NextResponse.json(
         { error: '无效的用户ID' },
         { status: 400 }
       )
     }
-    
+
+    // 检查权限 - 只能查看自己的信息或管理员可以查看所有用户
+    const authResult = await requireOwnershipOrAdmin(id)
+    if (authResult instanceof NextResponse) {
+      return authResult
+    }
+
     // 查找用户
-    const user = await UserService.findUserById(userId)
+    const user = await UserService.findUserById(id)
     
     if (!user) {
       return NextResponse.json(
@@ -51,15 +57,20 @@ export async function PUT(
 ) {
   try {
     const { id } = await params
-    const userId = parseInt(id)
     const body = await request.json()
-    
+
     // 验证ID格式
-    if (isNaN(userId)) {
+    if (!id || id.trim() === '') {
       return NextResponse.json(
         { error: '无效的用户ID' },
         { status: 400 }
       )
+    }
+
+    // 检查权限 - 只能更新自己的信息或管理员可以更新所有用户
+    const authResult = await requireOwnershipOrAdmin(id)
+    if (authResult instanceof NextResponse) {
+      return authResult
     }
     
     // 验证邮箱格式（如果提供）
@@ -82,7 +93,7 @@ export async function PUT(
     }
     
     // 更新用户
-    const updatedUser = await UserService.updateUser(userId, {
+    const updatedUser = await UserService.updateUser(id, {
       name: body.name,
       email: body.email,
       role: body.role,
@@ -129,18 +140,23 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params
-    const userId = parseInt(id)
-    
+
     // 验证ID格式
-    if (isNaN(userId)) {
+    if (!id || id.trim() === '') {
       return NextResponse.json(
         { error: '无效的用户ID' },
         { status: 400 }
       )
     }
-    
+
+    // 检查权限 - 只有管理员可以删除用户
+    const authResult = await requireModerator()
+    if (authResult instanceof NextResponse) {
+      return authResult
+    }
+
     // 删除用户
-    await UserService.deleteUser(userId)
+    await UserService.deleteUser(id)
     
     return NextResponse.json({
       success: true,

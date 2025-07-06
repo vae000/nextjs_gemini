@@ -11,12 +11,15 @@ export class UserService {
     password: string
     role?: Role
   }) {
-    const hashedPassword = await bcrypt.hash(data.password, 10)
-    
+    // 如果密码为空（OAuth 用户），则不进行哈希
+    const hashedPassword = data.password ? await bcrypt.hash(data.password, 10) : null
+
     return prisma.user.create({
       data: {
-        ...data,
+        email: data.email,
+        name: data.name,
         password: hashedPassword,
+        role: data.role || Role.USER,
       },
       select: {
         id: true,
@@ -50,7 +53,7 @@ export class UserService {
   }
 
   // 根据ID查找用户
-  static async findUserById(id: number) {
+  static async findUserById(id: string) {
     return prisma.user.findUnique({
       where: { id },
       select: {
@@ -132,7 +135,7 @@ export class UserService {
   }
 
   // 更新用户信息
-  static async updateUser(id: number, data: Partial<User>) {
+  static async updateUser(id: string, data: Partial<User>) {
     return prisma.user.update({
       where: { id },
       data,
@@ -150,7 +153,7 @@ export class UserService {
   }
 
   // 删除用户
-  static async deleteUser(id: number) {
+  static async deleteUser(id: string) {
     return prisma.user.delete({
       where: { id },
     })
@@ -167,7 +170,7 @@ export class PostService {
     slug: string
     category?: string
     tags?: string[]
-    authorId: number
+    authorId: string
     published?: boolean
   }) {
     return prisma.post.create({
@@ -197,7 +200,7 @@ export class PostService {
     search?: string
     category?: string
     published?: boolean
-    authorId?: number
+    authorId?: string
   } = {}) {
     const { page = 1, limit = 10, search, category, published, authorId } = options
     const skip = (page - 1) * limit
@@ -377,7 +380,7 @@ export class CommentService {
   // 创建评论
   static async createComment(data: {
     content: string
-    authorId: number
+    authorId: string
     postId: number
     parentId?: number
   }) {

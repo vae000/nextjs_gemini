@@ -1,6 +1,9 @@
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 
+// 强制动态渲染
+export const dynamic = 'force-dynamic'
+
 // 定义类型
 interface User {
   id: number

@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { UserService } from '@/lib/db-operations'
 import { Role } from '@prisma/client'
+import { requireModerator } from '@/lib/auth'
 
-// GET请求 - 获取用户列表
+// GET请求 - 获取用户列表 (需要管理员或版主权限)
 export async function GET(request: NextRequest) {
+  // 检查权限
+  const authResult = await requireModerator()
+  if (authResult instanceof NextResponse) {
+    return authResult
+  }
+
   try {
     const searchParams = request.nextUrl.searchParams
     

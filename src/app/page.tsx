@@ -1,7 +1,11 @@
+'use client'
+
 import Image from "next/image";
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 // 导航栏组件
 function Navigation() {
+  const { data: session, status } = useSession();
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,12 +71,50 @@ function Navigation() {
 
           {/* 右侧按钮 */}
           <div className="flex items-center space-x-4">
-            <button className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-              登录
-            </button>
-            <button className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition-colors">
-              注册
-            </button>
+            {status === 'loading' ? (
+              <div className="text-gray-600 dark:text-gray-300 px-3 py-2">
+                加载中...
+              </div>
+            ) : session ? (
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2">
+                  {session.user.image && (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || '用户头像'}
+                      className="w-8 h-8 rounded-full"
+                    />
+                  )}
+                  <span className="text-gray-700 dark:text-gray-300 text-sm">
+                    {session.user.name || session.user.email}
+                  </span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                    {session.user.role}
+                  </span>
+                </div>
+                <button
+                  onClick={() => signOut()}
+                  className="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  退出
+                </button>
+              </div>
+            ) : (
+              <>
+                <button
+                  onClick={() => signIn()}
+                  className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  登录
+                </button>
+                <a
+                  href="/auth/signup"
+                  className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  注册
+                </a>
+              </>
+            )}
           </div>
 
           {/* 移动端菜单按钮 */}

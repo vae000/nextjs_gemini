@@ -150,80 +150,38 @@ export function useApiMutation<T, P = any>(
 }
 
 /**
- * 用于用户认证的自定义Hook
+ * 用于用户认证的自定义Hook (兼容 NextAuth.js)
+ * 这个 hook 现在是 NextAuth.js useSession 的包装器，保持向后兼容
  */
 export function useAuth() {
+  // 注意：这个 hook 现在已被弃用，建议直接使用 NextAuth.js 的 useSession
+  // 为了向后兼容，我们保留这个接口但建议迁移到 useSession
+  console.warn('useAuth hook 已被弃用，请使用 NextAuth.js 的 useSession hook')
+
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
-  // 检查登录状态
-  const checkAuth = useCallback(async () => {
-    try {
-      const response = await fetch('/api/auth/login', {
-        credentials: 'include'
-      })
-      const result = await response.json()
-
-      if (result.success) {
-        setIsAuthenticated(true)
-        setUser(result.data?.user || null)
-      } else {
-        setIsAuthenticated(false)
-        setUser(null)
-      }
-    } catch (error) {
-      setIsAuthenticated(false)
-      setUser(null)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  // 登录
-  const login = useCallback(async (credentials: { email: string; password: string }) => {
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(credentials)
-      })
-
-      const result = await response.json()
-
-      if (result.success) {
-        setIsAuthenticated(true)
-        setUser(result.data?.user || null)
-        return { success: true }
-      } else {
-        return { success: false, error: result.error }
-      }
-    } catch (error) {
-      return { success: false, error: '登录失败' }
-    }
-  }, [])
-
-  // 注销
-  const logout = useCallback(async () => {
-    try {
-      await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
-      })
-    } catch (error) {
-      console.error('注销失败:', error)
-    } finally {
-      setIsAuthenticated(false)
-      setUser(null)
-    }
-  }, [])
-
+  // 模拟原有的接口，但实际上应该使用 NextAuth.js
   useEffect(() => {
-    checkAuth()
-  }, [checkAuth])
+    // 这里可以添加迁移提示或者临时的兼容逻辑
+    setLoading(false)
+    setIsAuthenticated(false)
+    setUser(null)
+  }, [])
+
+  const login = useCallback(async (credentials: { email: string; password: string }) => {
+    console.warn('请使用 NextAuth.js 的 signIn 方法替代 useAuth().login')
+    return { success: false, error: '请使用新的认证系统' }
+  }, [])
+
+  const logout = useCallback(async () => {
+    console.warn('请使用 NextAuth.js 的 signOut 方法替代 useAuth().logout')
+  }, [])
+
+  const checkAuth = useCallback(async () => {
+    console.warn('请使用 NextAuth.js 的 useSession hook 替代 useAuth().checkAuth')
+  }, [])
 
   return {
     isAuthenticated,

@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category') || undefined
     const published = searchParams.get('published') === 'true' ? true : 
                      searchParams.get('published') === 'false' ? false : undefined
-    const authorId = searchParams.get('authorId') ? parseInt(searchParams.get('authorId')!) : undefined
+    const authorId = searchParams.get('authorId') || undefined
     
     // 参数验证
     if (page < 1 || limit < 1 || limit > 100) {
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
     }
     
     // 验证作者ID
-    if (isNaN(parseInt(body.authorId))) {
+    if (!body.authorId || typeof body.authorId !== 'string' || body.authorId.trim() === '') {
       return NextResponse.json(
         { error: '无效的作者ID' },
         { status: 400 }
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
       slug: body.slug,
       category: body.category,
       tags: body.tags || [],
-      authorId: parseInt(body.authorId),
+      authorId: body.authorId,
       published: body.published || false,
     })
     
