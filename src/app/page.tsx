@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useSession, signIn, signOut } from 'next-auth/react';
+import ContactForm from '@/components/ContactForm';
 
 // 导航栏组件
 function Navigation() {
@@ -61,7 +62,7 @@ function Navigation() {
                 Prisma演示
               </a>
               <a
-                href="#"
+                href="/contact"
                 className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
                 联系
@@ -347,6 +348,29 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            {/* 联系表单部分 */}
+            <section id="contact" className="w-full max-w-4xl mt-20 scroll-mt-20">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                  📧 联系我们
+                </h2>
+                <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                  有任何问题或建议？我们很乐意听到您的声音。请填写下面的表单，我们会尽快回复您。
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+                <ContactForm
+                  onSuccess={(data) => {
+                    console.log('联系表单提交成功:', data);
+                  }}
+                  onError={(error) => {
+                    console.error('联系表单提交失败:', error);
+                  }}
+                />
+              </div>
+            </section>
           </main>
           <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
             <a

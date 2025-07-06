@@ -26,6 +26,7 @@ model User {
   bio           String?
   posts         Post[]
   comments      Comment[]
+  contacts      Contact[]
   accounts      Account[]
   sessions      Session[]
   createdAt     DateTime  @default(now())
@@ -113,6 +114,34 @@ model Comment {
   updatedAt DateTime @updatedAt
 
   @@map("comments")
+}
+
+// 联系表单模型
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  phone     String?
+  company   String?
+  status    ContactStatus @default(PENDING)
+  isRead    Boolean  @default(false)
+  response  String?  @db.Text
+  userId    String?  // 可选，如果用户已登录
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contacts")
+}
+
+// 联系状态枚举
+enum ContactStatus {
+  PENDING    // 待处理
+  PROCESSING // 处理中
+  RESOLVED   // 已解决
+  CLOSED     // 已关闭
 }
 
 // 用户角色枚举

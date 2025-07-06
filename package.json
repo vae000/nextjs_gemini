@@ -18,14 +18,21 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
+    "@hookform/resolvers": "^5.1.1",
     "@prisma/client": "^6.11.1",
     "@types/bcrypt": "^5.0.2",
+    "@types/nodemailer": "^6.4.17",
     "bcrypt": "^6.0.0",
+    "limiter": "^3.0.0",
     "next": "15.3.4",
     "next-auth": "^4.24.11",
+    "next-rate-limit": "^0.0.3",
+    "nodemailer": "^6.10.1",
     "prisma": "^6.11.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.60.0",
+    "zod": "^3.25.74"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
